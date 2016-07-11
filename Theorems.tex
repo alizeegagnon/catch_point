@@ -1,0 +1,212 @@
+\documentclass{article}
+\usepackage{amsmath}
+\title{Cops and robbers on graphs with a fixed catch point}
+\date{2016-06-10}
+\author{Alizee Gagnon}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newenvironment{proof}[1][Proof]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\usepackage[T1]{fontenc}
+
+\begin{document}
+\maketitle
+\begin{definition}
+Let G be a graph with catch point $v$. The $v-cop-number$ of G $C_{v}(G)$ is the minimal number of cops needed to catch the robber on $v$.
+\end{definition}
+\begin{definition}
+\label{survivability_def}
+Let $G(V, E)$ be a graph in the game of cops and robbers. Let $C \subseteq V$ be the set of vertices occupied by at least one cop. For $x\in V$, $S(x, C)$, the $survivability$ $rating$ of $x$, is the number of turns from both robber and cops necessary to end the game after the robber moves over $x$ when the cops are at $C$, without trying to herd the robber towards a catch point.
+\end{definition}
+\begin{corollary}
+\label{survivability_lem}
+Let G(V, E) be a graph, $x \in G$, C $\in$ V the set of cops.
+
+a) If x $\in$ C, then S(x, C) = 0.
+
+b) If x $\in$ N(C)$\setminus$C, then S(x, C) = 1.
+
+c) If x $\notin$ N(C), then S(x, C) $\ge$ 1.
+
+
+\end{corollary}
+\begin{proof}
+
+
+$a)$ If there is a cop on $x$, and the robber moves on $x$, then the robber is on the same vertex as a cop and he is caught immediately. 0 further moves are needed to catch the robber.
+
+$b)$ If the robber moves onto a vertex that is neighbor to a cop, then the cop only has to move one step towards the robber to catch him. One move was needed to catch the robber.
+
+$c)$ If no cops are neighbor to the robber, none of them can be upon him in one move. Therefore the robber can survive more than one turn.
+\end{proof}
+
+Because the rules of the game of cops and robbers state the robber wants to escape the cops as long as possible, then we will assume the robber's algorithm consists in calculating the survivability rating of every vertex it has access to at any point and choosing among those who obtain the biggest score.
+
+\begin{lemma}
+\label{ circling the cycle }
+Let $G$ be a cycle of length $n \ge 4$. The robber is on some vertex called $v_i$ and is surrounded by two cops: one is neighboring the robber and is labeled $c_o$ because it is an odd distance from the robber, and the other is two vertices away from the robber and is labeled $c_e$ because its distance to the robber is even. There is another vertex on the cycle labeled $v_0$ which is the catch point vertex. Let $c_o$' vertex be labeled $v_{i-1}$ and the other vertices be numbered down from there, mod n, until $v_i$ is reached again. That means $c_e$ is on $v_{i+2}$. It is the cops' turn. Then the cops can catch the robber on $v_0$ in i+1 (cops') moves.
+
+\end{lemma}      
+\begin{proof}
+If $i = 0$, then the robber is already on the catch point. Cop $c_o$ is on $v_{n-1}$ and can move over $v_n$ to catch the robber in $1 = i + 1$ moves.
+
+Suppose we know we can catch the robber in the above configuration in $k+1$ moves if $i = k$. If we have $i = k+1$, then the robber is on $v_{k+1}$, $c_o$ is on $v_k$ and $c_e$ is on $v_{k+3}$. $c_e$ and $c_o$ can move one step "down", on vertices $v_{k+2}$ and $v_{k-1}$ respectively, without catching the robber. Now the robber's only free neighbor is $v_{k+1}$, so it is forced to move on it. The cops have moved once and the configuration is now the above configuration for $i = k$. Therefore it is possible to catch the robber from $i = k+1$ in $k+1+1 = i+1$ moves.
+\end{proof}
+
+\begin{lemma}
+\label{ shorting the gap }
+Let P(V, E) be a path of lenght n = 2k +1, k>1. Number the 2k+2 vertices of P as such: $v_{-(k+1)}$, $v_{-k}$,..., $v_{-1}$, $v_{1}$,...., $v_{k}$, $v_{k+1}$, Place one cop at each extremity of P and allow the robber to place himself on any vertex of the path as if playing a normal game of cops and robber. Then the cops can manage to be in a position with one cop distance 2 away from the robber and the other distance 3 away in k-2 moves. 
+\end{lemma}
+\begin{proof}
+If $k = 2$, then the only vertices with a survivability rating of more than 1 are $v_{-1}$ and $v_1$, because the other vertices are part of the neighborhood of the cops. These two vertices are identical by symmetry, so without loss of generality, assume the robber places himself on $v_1$. Then he is already distance 2 from the cop on $v_3$ and distance 3 from the cop on $v_{-3}$. We arrived at the configuration in $0 = k-2$ moves.
+
+If $k > 2$, then at the start of the game, the only vertices with survivability rating of less than 2 are occupied by cops or next to those vertices. This means vertices $v_{-k+1}$ through $v_{k-1}$ have a superior survivability rating and the robber will choose one of these as his starting vertex. Vertices $v_{k}$ and $v_{-k}$ stay empty and the cops can move on them. Since the cops move one edge towards each other then the distance between them is now 
+Assume \textbf{TODO}
+
+\end{proof}
+\begin{theorem}
+\label{cycle}
+Let G(V, E) be a cycle. Let v $\in$ V be the catch point. Then only two cops are needed to catch a robber on v.
+\end{theorem}
+\begin{proof}
+Let $x, y \in V, xy \in E$.
+If G is odd, then place the two cops on $x$. If G is even, then place one cop on $x$ and the other on $y$. \textbf{TODO}
+
+\end{proof}
+\begin{theorem}
+\label{catch_number}
+Let G(V, E) be a graph with catch point v $\in$ V. Let $d_t = min\{deg(u) | uv \in E, \exists y \in N(u) \cap N(v) \}$ and $d_b = min\{deg(u) | uv \in E\}$. Let $d* = min\{d_t-1, d_b\}$. Then $d*$ is an inferior bound to the v-cop-number of G.
+\end{theorem}
+\begin{proof}
+If we want to catch the robber on $v$ on the next turn, then the robber has to be on a neighbor of $v$ and there needs to be a cop on another neighbor of $v$. Let the robber be on $x \in N(v)$ and the catching cop be on $y \in N(v)$, $x \ne y$. We want the robber to move from $x$ to $v$. As there is a cop neighboring $v$, then the suvivability rating of $v$ is 1. For the robber to move on $v$, every other neighbor of $x$ must have a lesser survivability rating, which means every other neighbor of $x$ must be occupied by a cop, which drops their survivability rating to 0. The number of cops must be enough to cover every other neighbor of $x$ AND one neighbor of $v$, so the total number of cops needed to catch the robber with second-last vertex $x$ can be $deg(x)-1$ if vertex $y \in N(x) \cap N(v)$, ie $xv$ is part of a triangle. If $xv$ isn't part of a triangle, then $deg(x)-1+1$ cops are needed. The v-cop-number of G is then bounded by the smallest degree amongst every neighbor of $v$. 
+\end{proof}
+
+\begin{lemma}
+\label{cop-catches}
+Let v be a leaf. If the robber doesn't start the game on v with a cop in the neighboring vertex, then he cannot be caught by a cop moving onto him on v.
+\end{lemma}
+\begin{proof}
+Suppose the robber doesn't start the game on $v$ but is caught on $v$ by a cop moving onto him. Let $s$ be the only neighboring vertex of $v$. On the last turn of the game, the cop moves from $s$ to $v$ and catches the robber. But on the last robber's turn, the latter also moved from $s$ to $v$, since it is an active game. Then on the penultimate round, both the cop and the robber were on $s$, and the robber is already caught. This contradicts the rules of the game and proves the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{robber-catches}
+It is impossible to force the robber to move onto a catch point v occupied by a cop unless v is next to a leaf.
+\end{lemma}
+\begin{proof}
+Let $x$ be the robber's position and $y \in N(x)$ be the cop's position. The survivability rating of $y$ is 0. For this vertex to be the only best choice for the robber, there must be no other neighbor of $x$ with superior or equal survivability rating. As 0 is the lowest rating possible, then $y$ must be the only neighbor of $x$.
+\end{proof}
+\begin{lemma}
+\label{robber-starts-wherever}
+In order for the robber to start on v with a cop besides him, there needs to be at least one cop placed on every other vertex of G.
+\end{lemma}
+\begin{proof}
+Vertex $v$ has survivability rating 1. For $v$ to be the only best choice, every other vertex must have a lower survivability rating. Thus every other vertex of $G$ must be occupied by a cop.
+\end{proof}
+\begin{lemma}
+\label{path-1}
+Let P be a path of lenght one, with vertices numbered $v_0$ and $v_1$, and catch point on $v_0$ . The robber cannot be caught on $v_0$ by letting him move onto a cop. 
+\end{lemma}
+\begin{proof}
+For this scenario to work, after the cop's first move, the cop must sit on $v_0$ and the robber must start on $v_1$. But this means before her first move, the cop was on $v_1$. Both the cop and the robber were on $v_1$ at the start of the game, so the robber is already caught. 
+\end{proof}
+\begin{theorem}
+\label{path-distance-0}
+Let G be a graph with n >1 vertices. Let the catch point v be placed on a leaf. Then exactly n-1 cops placed on all vertices of G except v are needed to catch the robber on v.
+\end{theorem}
+\begin{proof} We need to consider the two ways of catching a robber: either cops move onto him on their turn, or the robber itself moves onto the cops on his turn. As per lemmas \ref{robber-catches} and \ref{path-1}, we cannot rely on the robber catching himself. Lemmas \ref{cop-catches} and \ref{robber-starts-wherever} complete the proof.
+
+\end{proof}
+
+\begin{theorem}
+\label{path-distance-1}
+Let P be a path of length $n \ge 1$ with n+1 vertices labeled $v_0, v_1, ... , v_{n-1}, v_n $. Let the catch point $v$ be on either $v_1$ or $v_{n-1}$. Then only one cop is needed to catch the robber on $v$.
+\end{theorem}
+\begin{proof}
+Without loss of generality, let $v$ be on $v_1$. \textbf{TODO}
+\end{proof}
+\begin{theorem}
+\label{complete_bipartite}
+Let G be a complete bipartite graph with partite sets $A$ and $B$, $|A| = m >1 $,  $|B| = n > 1$, $m \ge n$. The catch point is $v$.
+
+a) If $v \in A$, then the minimum v-cop-number is $n+m-1$. 
+
+b) If $v \in B$, then the minimum v-cop-number is $2n-2$.
+
+\end{theorem}
+\begin{proof}
+a) We prove it is more efficient to use $n+m-1$ cops to make the robber start on $v$ than make the robber start on $B$ or on $A\setminus v$. (because on a bipartite graph every vertex of $B$ is "equivalent" idem for every vertex of $A$. 
+
+To make the robber start on $B$ and be able to catch him on $v$, we need at least one cop starting on $A$ so she can move on $B$ on his first move and cover $v$ on the second turn. As $v$ covers $B$ on the starting turn, the survivability rating of vertices of $B$ is 1. All vertices of $A$ must have a survivability rating of 0 and be covered by $m$ cops for the robber to start on $B$. After the first cop's move, $m-1$ cops are needed on $A \setminus v$ to force the robber on $v$. These cops start on $B$. In total $2m-1$ cops are needed for this strategy. 
+
+Similarly, to make the robber start on $A \setminus v$ and catch him on $v$, we need $n$ cops on $B$ and  $m-1$ cops on $A$. In total $n+m-1$ cops are needed. It is then more efficient to make those $n+m-1$ cops start on all vertices of $G$ except $v$ so the robber starts on $v$ and is caught on the first turn.
+
+b) If we want the robber to start on $A$, $n$ cops are needed to fill $B \setminus v$  and be able to catch the robber on the next turn, while giving the robber the chance to start on $v$ and be caught immediately. $n-1$ cops are needed on $A$ to cover $B$ on the last turn and force the robber to move on $v$. For this strategy $2n-2$ cops total are needed. If we want the robber to start on $B$, we need $m$ cops to cover $A$ and $n-1$ cops on $B$ to cover $B\setminus v$ on the last turn. In total $m+n-1$ cops are needed, which is as much as it costs to make the robber start on $v$. The best strategy is then to make the robber start on $B$ and only use $2n-2$ cops. 
+
+\end{proof}
+The previous result gives a superior bound for all non-complete bipartite graphs ? NO see 1-star and see cases where a leaf is on smaller set.
+\begin{theorem}
+On $Q_3$, 3 cops are needed. On $Q_4$, 4 cops are needed 
+\end{theorem}
+\begin{theorem} cops on $Q_5$ ?????
+
+Can't win with 8, 7 etc
+\end{theorem}
+\begin{theorem}
+\label{path-distance-2}
+Let P be a path of length n $\ge$ 6 with vertices labeled $v_0, v_1, ... , v_{n-1}, v_n $. Let the catch point v be on $v_2$ or $v_{n-2}$. Then it is possible to catch the robber on v with three cops.
+\end{theorem}
+\begin{theorem}
+\label{path_general}
+Let G(V, E) be a path of length n $\ge$ 7 with vertices labeled $v_0, v_1, ... , v_{n-1}, v_n $. Let the catch point v $\in$ R $\subset$ V, $R = \{v_{i} : 3 \le i \le n-3\}$. Then it is possible to catch the robber on v with two cops.
+\end{theorem}
+\begin{theorem}
+Let G be a complete binary tree with n vertices. Let the root be v, the catch point. Then the number of cops needed to catch the robber on v is $2^{\lceil{\dfrac{\log n}{2}}\rceil}+1$
+\end{theorem}
+\begin{theorem}
+
+Let G be any spider with m legs $l_0$, $l_1$, ... $l_{m-1}$. Let the hub be v, the catch point. Let $k = min\{ \left\vert l_i \right\vert : 0 \le i < m \}$. If $k \ge 3$, then m cops can catch the robber on v.
+\end{theorem}
+\begin{proof}
+Compare spiders to paths. TODO but do paths first !!
+
+\end{proof}
+COmplete multipartite graphs !!
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\title{Cops and robbers on graphs with a fixed catch point}
+\date{2016-05-31}
+\author{Alizee Gagnon}
+\begin{document}
+    \maketitle
+    
+    This new way to see the cops and robbers problem is played as an active game on a graph with no loops. A vertex $v$ is designated as the "catch point vertex". The cops win if they can force the robber to be caught at $v$. Cops have all information about the game. The robber doesn't know the cops aren't playing the normal game. He plays as to maximise the number of moves before he is caught assuming the cops try to catch him directly. On the first round of the game we place the cops, then on the second round the robber places himself on the vertex offering him maximal longevity. On each subsequent round, the cops and robbers alternate moving along an edge, starting with the cops, until at least one cop and the robber find themselves on the same vertex.
+    
+\section{Bipartite graphs}
+    Strategies to herd the robber on bipartite graphs are dependent on the cops having control over the robber's direction, ie the cops being able to chase the robber. The best way for cops to force the robber in a certain direction is to leave only one path for the robber to follow. What this means is that say the robber is on vertex $r$, and we want him to move to the vertex $d$  $N(r)$. If, on the robber's turn, every neighboring vertex of $r$ except $d$ is occupied by a cop, then the robber has no choice but to move to $d$.
+    
+    Because the players have to move every turn, on the preceding turn, all of those cops were two edges away from the robber before moving. On bipartite graphs, the parity of the distance between two players never changes. That means those cops always were an even distance away from the robber. Let's call them even-cops. Strategies on bipartite graphs need even-cops to control the robber's movement. But we also need to catch the robber somewhere. For this we will need an odd-cop. To catch the robber on a specific vertex, we need to catch him on the cops' turn, ie we need a cop at distance 1 from the robber that will move onto him. We usually can't count on the robber moving onto the right cop by himself because:
+    
+    - The only way the robber would move onto a cop is because he is completely surrounded by cops. If there was a empty vertex next to the robber, he would have moved there instead. 
+    
+    -If the robber is on vertex $r$, with catch point $v \in N(r)$, and there is a cop on every vertex $ v \in N(r)$, we have to consider the possibility that the robber moves on a vertex $\ne v$ and be caught in the wrong place. Letting the robber get caught on his turn is not a valid strategy unless the only neighbor of $r$ is $v$, ie the robber is on a leaf and $v$ is its neighbor.
+    
+    We need to have a way to control when the robber is caught, so we need to catch him on the cop's turn. 
+   
+\end{document}
